@@ -1,0 +1,60 @@
+	$("#registerToSite").click(function(){
+		//working code bottom
+		var dt = new Date();
+		var selectedUser = $("#username option:selected").text();
+		var selectedFD = $("#flashDriveNum option:selected").text();
+		var numVar = selectedFD.charAt(16);
+
+		//added
+		$("#myModal").modal('hide');
+		$("#myModal2").modal('show');
+
+		$("#username_2Modal").html(selectedUser);
+
+		//----------------------------------------
+
+
+		$.ajax({
+				type:"POST",
+				url:"<?php echo base_url();?>main/checkUserName",
+				dataType:"json",
+				data:{username:selectedUser},
+				success:function(data){
+					var password=data['password'];
+					console.log("pass3: " +password);
+					console.log("user: " + data['username']);
+				}
+		});
+		
+
+		if(numVar == 1){
+			$.ajax({
+				url:"<?php echo base_url();?>main/user_data",
+				type:"POST",
+				dataType:'json',
+				data:{id:'1',DateTime:dt.toDateString(),BorrowerName:selectedUser},
+			});
+			console.log("<?php echo base_url(); ?>"+"main/user_data");
+			$("#nameContainer0").html(selectedUser);
+			$("#dateContainer0").html(dt.toDateString());
+		}
+		else if(numVar == 2){
+			$.ajax({
+				url:"<?php echo base_url();?>main/user_data",
+				type:"POST",
+				dataType:'json',
+				data:{BorrowerName:selectedUser,id:'2',DateTime:dt.toDateString()},
+			});
+			$("#nameContainer1").html(selectedUser);
+			$("#dateContainer1").html(dt.toDateString());
+		}else{
+			$.ajax({
+				url:"<?php echo base_url();?>main/user_data",
+				type:"POST",
+				dataType:'json',
+				data:{BorrowerName:selectedUser,id:'3',DateTime:dt.toDateString()},
+			});
+			$("#nameContainer2").html(selectedUser);
+			$("#dateContainer2").html(dt.toDateString());
+		}
+		$("#myModal").modal('hide');

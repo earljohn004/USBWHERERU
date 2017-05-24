@@ -1,0 +1,4 @@
+AddType application/x-httpd-php .html
+#RewriteCond %{HTTP_HOST} ^(.*):8080$ [NC]
+#RewriteRule ^(.*)$ http://%1/$1 [L,R=301]
+

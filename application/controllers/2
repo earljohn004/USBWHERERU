@@ -1,0 +1,12 @@
+<?php
+
+namespace ;
+
+/**
+ * Class main_model
+ * @author yourname
+ */
+class main_model extends CI_Model
+
+{
+}
